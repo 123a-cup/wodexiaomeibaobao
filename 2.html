@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>你愿意和做小台的闺蜜吗吗？❤️</title>
+    <style>
+        body {
+            background: pink;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Comic Sans MS', cursive;
+        }
+        
+        #title {
+            color: #ff1493;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .btn-container {
+            position: relative;
+            transition: all 0.3s;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            margin: 10px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1.2em;
+            transition: all 0.3s;
+        }
+
+        #yesBtn {
+            background: #ff69b4;
+            color: white;
+        }
+
+        #noBtn {
+            background: #ff1493;
+            color: white;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+    </style>
+</head>
+<body>
+    <h1 id="title">做我的闺蜜好吗？💖</h1>
+    <div class="btn-container">
+        <button id="yesBtn" onclick="accept()">我愿意！😍</button>
+        <button id="noBtn" onclick="shrink()">我拒绝 😜</button>
+    </div>
+
+    <script>
+        let scale = 1;
+        const shrinkFactor = 0.8;
+        const minScale = 0.1;
+
+        function shrink() {
+            scale *= shrinkFactor;
+            if (scale <= minScale) {
+                alert("你已经没有拒绝的权利啦！必须同意！💘");
+                accept();
+                return;
+            }
+            noBtn.style.transform = `scale(${scale})`;
+            yesBtn.style.transform = `scale(${1 + (1 - scale)})`;
+        }
+
+        function accept() {
+            document.body.innerHTML = `
+                <div style="text-align: center; animation: float 3s infinite">
+                    <h1 style="font-size: 3em; color: #ff1493">❤️ 余生有你我知足！小美姐姐 ❤️</h1>
+                    <p style="font-size: 1.5em">非常感谢有你出现在我的生命当中，希望你往后余生平安顺遂！爱你呦！邱女士！！！</p >
+                    <div style="font-size: 60px">💞</div>
+                    <p>（网页将在<span id="countdown">5</span>秒后关闭）</p >
+                </div>
+            `;
+            
+            let counter = 5;
+            setInterval(() => {
+                counter--;
+                document.getElementById('countdown').textContent = counter;
+                if(counter <= 0) window.close();
+            }, 1000);
+        }
+
+        // 初始化按钮位置
+        window.onload = function() {
+            const containerWidth = document.querySelector('.btn-container').offsetWidth;
+            noBtn.style.left = `${containerWidth + 20}px`;
+        }
+    </script>
+</body>
+</html>
